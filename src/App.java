@@ -13,17 +13,21 @@ public class App {
 
         // Process time entries from command-line arguments
         for (String arg : args) {
-            TimeEntry timeEntry = parseTimeEntry(arg);
-            if (timeEntry != null) {
-                timeEntries.add(timeEntry);
+            if (!arg.equals("-f")) {
+                TimeEntry timeEntry = parseTimeEntry(arg);
+                if (timeEntry != null) {
+                    timeEntries.add(timeEntry);
+                }
             }
         }
 
         // Check if a file path is provided in the command line
         String filePath = getFilePath(args);
+        System.out.println(filePath);
         if (filePath != null) {
             // Parse time entries from the text file specified in the command line
             List<TimeEntry> fileTimeEntries = parseTimeEntriesFromFile(filePath);
+            System.out.println(fileTimeEntries);
             timeEntries.addAll(fileTimeEntries);
         }
 
@@ -37,13 +41,15 @@ public class App {
     }
 
     private static String getFilePath(String[] args) {
-        // Check if a file path is provided in the command line
         for (int i = 0; i < args.length; i++) {
-            if (args[i].endsWith(".txt") && i < args.length - 1) {
-                return args[i];
+            if (args[i].equals("-f")) {
+                // Check if the next argument exists
+                if (i + 1 < args.length) {
+                    return args[i + 1];
+                }
             }
         }
-        return null;
+        return null; // File path not found in arguments
     }
 
     private static TimeEntry parseTimeEntry(String input) {
@@ -74,26 +80,23 @@ public class App {
 
     private static BusiestPeriod calculateBusiestPeriod(List<TimeEntry> timeEntries) {
         Map<LocalTime, Integer> breakTimeStatistics = new TreeMap<>();
+        int maxDrivers = 0;
+        LocalTime busiestStartTime = LocalTime.MIN;
+        LocalTime busiestEndTime = LocalTime.MIN;
 
         for (TimeEntry timeEntry : timeEntries) {
             LocalTime startTime = timeEntry.getStartTime();
             LocalTime endTime = timeEntry.getEndTime();
 
             for (LocalTime time = startTime; !time.isAfter(endTime); time = time.plusMinutes(1)) {
-                breakTimeStatistics.put(time, breakTimeStatistics.getOrDefault(time, 0) + 1);
-            }
-        }
+                int driversAtTime = breakTimeStatistics.getOrDefault(time, 0) + 1;
+                breakTimeStatistics.put(time, driversAtTime);
 
-        int maxDrivers = 0;
-        LocalTime busiestStartTime = LocalTime.MIN;
-        LocalTime busiestEndTime = LocalTime.MIN;
-
-        for (LocalTime time : breakTimeStatistics.keySet()) {
-            int driversAtTime = breakTimeStatistics.get(time);
-            if (driversAtTime > maxDrivers) {
-                maxDrivers = driversAtTime;
-                busiestStartTime = time;
-                busiestEndTime = time.plusMinutes(1);
+                if (driversAtTime > maxDrivers) {
+                    maxDrivers = driversAtTime;
+                    busiestStartTime = time;
+                    busiestEndTime = time.plusMinutes(1);
+                }
             }
         }
 
