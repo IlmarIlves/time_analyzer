@@ -11,7 +11,6 @@ public class App {
     public static void main(String[] args) throws IOException {
         List<TimeEntry> timeEntries = new ArrayList<>();
 
-        // Process time entries from command-line arguments
         for (String arg : args) {
             if (!arg.equals("-f")) {
                 TimeEntry timeEntry = parseTimeEntry(arg);
@@ -21,20 +20,14 @@ public class App {
             }
         }
 
-        // Check if a file path is provided in the command line
         String filePath = getFilePath(args);
-        System.out.println(filePath);
         if (filePath != null) {
-            // Parse time entries from the text file specified in the command line
             List<TimeEntry> fileTimeEntries = parseTimeEntriesFromFile(filePath);
-            System.out.println(fileTimeEntries);
             timeEntries.addAll(fileTimeEntries);
         }
 
-        // Calculate the busiest time period
         BusiestPeriod busiestPeriod = calculateBusiestPeriod(timeEntries);
 
-        // Display the result
         System.out
                 .println("Busiest Time Period: " + busiestPeriod.getStartTime() + " to " + busiestPeriod.getEndTime());
         System.out.println("Number of Drivers: " + busiestPeriod.getNumberOfDrivers());
@@ -43,13 +36,12 @@ public class App {
     private static String getFilePath(String[] args) {
         for (int i = 0; i < args.length; i++) {
             if (args[i].equals("-f")) {
-                // Check if the next argument exists
                 if (i + 1 < args.length) {
                     return args[i + 1];
                 }
             }
         }
-        return null; // File path not found in arguments
+        return null;
     }
 
     private static TimeEntry parseTimeEntry(String input) {
