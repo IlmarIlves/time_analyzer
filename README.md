@@ -1,18 +1,13 @@
-## Getting Started
+### Running the Application
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+To run the application, use the following command in the src folder:
 
-## Folder Structure
+```shell
+java App "13:15-14:00" "15:30-16:00" "17:00-18:00"
+```
 
-The workspace contains two folders by default, where:
+To run it with a .txt folder, add an -f tag followed by the .txt file location:
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+```shell
+ java App -f "data\times.txt" "10:30-11:35" "10:15-11:15" "11:20-11:50" "10:35-11:40" "10:20-11:20"
+```
