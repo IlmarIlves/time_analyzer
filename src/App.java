@@ -3,10 +3,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+
+import components.BusiestPeriodCalculator;
+import types.BusiestPeriod;
+import types.TimeEntry;
 
 public class App {
     public static void main(String[] args) throws IOException {
@@ -27,7 +28,7 @@ public class App {
             timeEntries.addAll(fileTimeEntries);
         }
 
-        BusiestPeriod busiestPeriod = calculateBusiestPeriod(timeEntries);
+        BusiestPeriod busiestPeriod = BusiestPeriodCalculator.calculateBusiestPeriod(timeEntries);
 
         System.out
                 .println("Busiest Time Period: " + busiestPeriod.getStartTime() + " to " + busiestPeriod.getEndTime());
@@ -69,75 +70,5 @@ public class App {
             }
         }
         return timeEntries;
-    }
-
-    private static BusiestPeriod calculateBusiestPeriod(List<TimeEntry> timeEntries) {
-        int maxDrivers = 0;
-        LocalTime busiestStartTime = LocalTime.MIN;
-        LocalTime busiestEndTime = LocalTime.MIN;
-
-        // Use a HashMap for faster access and insertions
-        Map<LocalTime, Integer> breakTimeStatistics = new HashMap<>();
-
-        for (TimeEntry timeEntry : timeEntries) {
-            LocalTime startTime = timeEntry.getStartTime();
-            LocalTime endTime = timeEntry.getEndTime();
-
-            // Optimize by checking only within the time range of interest
-            for (LocalTime time = startTime; !time.isAfter(endTime); time = time.plusMinutes(1)) {
-                int driversAtTime = breakTimeStatistics.getOrDefault(time, 0) + 1;
-                breakTimeStatistics.put(time, driversAtTime);
-
-                if (driversAtTime > maxDrivers) {
-                    maxDrivers = driversAtTime;
-                    busiestStartTime = time;
-                    busiestEndTime = endTime;
-                }
-            }
-        }
-
-        return new BusiestPeriod(busiestStartTime, busiestEndTime, maxDrivers);
-    }
-
-    static class TimeEntry {
-        private LocalTime startTime;
-        private LocalTime endTime;
-
-        public TimeEntry(LocalTime startTime, LocalTime endTime) {
-            this.startTime = startTime;
-            this.endTime = endTime;
-        }
-
-        public LocalTime getStartTime() {
-            return startTime;
-        }
-
-        public LocalTime getEndTime() {
-            return endTime;
-        }
-    }
-
-    static class BusiestPeriod {
-        private LocalTime startTime;
-        private LocalTime endTime;
-        private int numberOfDrivers;
-
-        public BusiestPeriod(LocalTime startTime, LocalTime endTime, int numberOfDrivers) {
-            this.startTime = startTime;
-            this.endTime = endTime;
-            this.numberOfDrivers = numberOfDrivers;
-        }
-
-        public LocalTime getStartTime() {
-            return startTime;
-        }
-
-        public LocalTime getEndTime() {
-            return endTime;
-        }
-
-        public int getNumberOfDrivers() {
-            return numberOfDrivers;
-        }
     }
 }
