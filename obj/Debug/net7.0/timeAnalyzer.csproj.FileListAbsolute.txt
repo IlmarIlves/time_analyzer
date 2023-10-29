@@ -1,0 +1,15 @@
+C:\Projects\timeAnalyzer\bin\Debug\net7.0\timeAnalyzer.exe
+C:\Projects\timeAnalyzer\bin\Debug\net7.0\timeAnalyzer.deps.json
+C:\Projects\timeAnalyzer\bin\Debug\net7.0\timeAnalyzer.runtimeconfig.json
+C:\Projects\timeAnalyzer\bin\Debug\net7.0\timeAnalyzer.dll
+C:\Projects\timeAnalyzer\bin\Debug\net7.0\timeAnalyzer.pdb
+C:\Projects\timeAnalyzer\obj\Debug\net7.0\timeAnalyzer.csproj.AssemblyReference.cache
+C:\Projects\timeAnalyzer\obj\Debug\net7.0\timeAnalyzer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\timeAnalyzer\obj\Debug\net7.0\timeAnalyzer.AssemblyInfoInputs.cache
+C:\Projects\timeAnalyzer\obj\Debug\net7.0\timeAnalyzer.AssemblyInfo.cs
+C:\Projects\timeAnalyzer\obj\Debug\net7.0\timeAnalyzer.csproj.CoreCompileInputs.cache
+C:\Projects\timeAnalyzer\obj\Debug\net7.0\timeAnalyzer.dll
+C:\Projects\timeAnalyzer\obj\Debug\net7.0\refint\timeAnalyzer.dll
+C:\Projects\timeAnalyzer\obj\Debug\net7.0\timeAnalyzer.pdb
+C:\Projects\timeAnalyzer\obj\Debug\net7.0\timeAnalyzer.genruntimeconfig.cache
+C:\Projects\timeAnalyzer\obj\Debug\net7.0\ref\timeAnalyzer.dll
